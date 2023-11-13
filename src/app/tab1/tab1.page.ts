@@ -9,31 +9,31 @@ import { BarcodeScanner, SupportedFormat, CameraDirection } from '@capacitor-com
 })
 export class Tab1Page {
 
-  constructor() {}
+  scanData:any;
 
-  async ionViewWillEnter() {
-    // await BarcodeScanner.prepare();
-  }
-
-  async startScan() {
-    // Check camera permission
-  // This is just a simple example, check out the better checks below
-  await BarcodeScanner.checkPermission({ force: true });
-
-  // make background of WebView transparent
-  // note: if you are using ionic this might not be enough, check below
-  BarcodeScanner.hideBackground();
-  CameraDirection.BACK;
-
-
-  const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
-
-    // if the result has content
+  constructor(cameraDirection: CameraDirection) {}
+  
+  startScan = async () => {
+    BarcodeScanner.hideBackground();
+    const result = await BarcodeScanner.startScan({ targetedFormats: [SupportedFormat.QR_CODE], cameraDirection: CameraDirection.BACK});
     if (result.hasContent) {
-      const rawQrData = result.content.split(',');
-      // const parsedQrData = rawQrData.
-      console.log('RAWDATA', rawQrData); // log the raw scanned content
-      alert(JSON.stringify(result)); // log the raw scanned content
+      console.log(result.content);
+      this.scanData = JSON.stringify(result);
+    }
+  };
+  
+  stopScan = () => {
+    BarcodeScanner.showBackground();
+    BarcodeScanner.stopScan();
+  };
+  
+  askUser = () => {  
+    const c = confirm('Do you want to scan a barcode?');
+  
+    if (c) {
+      this.startScan();
+    } else {
+      this.stopScan();
     }
   };
 
