@@ -31,7 +31,7 @@ export class Tab1Page {
       const rawQrData = result.content.split(',');
       // const parsedQrData = rawQrData.
       console.log('RAWDATA', rawQrData); // log the raw scanned content
-      console.log(result); // log the raw scanned content
+      alert(JSON.stringify(result)); // log the raw scanned content
     }
   };
 
