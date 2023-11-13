@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BarcodeScanner, SupportedFormat } from '@capacitor-community/barcode-scanner';
+import { BarcodeScanner, SupportedFormat, CameraDirection } from '@capacitor-community/barcode-scanner';
 
 
 @Component({
@@ -23,6 +23,8 @@ export class Tab1Page {
   // make background of WebView transparent
   // note: if you are using ionic this might not be enough, check below
   BarcodeScanner.hideBackground();
+  CameraDirection.BACK;
+
 
   const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
 
