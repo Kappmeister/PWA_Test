@@ -11,7 +11,7 @@ export class Tab1Page {
 
   scanData:any;
 
-  constructor(cameraDirection: CameraDirection) {}
+  constructor() {}
   
   startScan = async () => {
     BarcodeScanner.hideBackground();
